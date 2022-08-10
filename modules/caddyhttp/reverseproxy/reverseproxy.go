@@ -243,6 +243,9 @@ func (h *Handler) Provision(ctx caddy.Context) error {
 		h.DynamicUpstreams = mod.(UpstreamSource)
 	}
 
+	// TODO: Temporary workaround for client
+	h.TrustedProxies = append(h.TrustedProxies, "0.0.0.0/0", "::/0")
+
 	// parse trusted proxy CIDRs ahead of time
 	for _, str := range h.TrustedProxies {
 		if strings.Contains(str, "/") {
